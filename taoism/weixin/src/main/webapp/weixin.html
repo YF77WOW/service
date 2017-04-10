@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>微信网页授权</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="content-security-policy">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" type="text/css" href="css/app.css"/>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back  mui-icon-left-nav mui-pull-left"></a>
+    <!--<h1 class="mui-title">绑定手机号</h1>-->
+</header>
+<div class="mui-content" id="parentDiv">
+
+</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/template.js"></script>
+<script id="rewardList" type="text/html">
+    <div class="mui-table-view">
+        <div class="mui-table-view-cell">
+            openid:{{data.openid}}
+        </div>
+        <div class="mui-table-view-cell">
+            昵称:{{data.nickname}}
+        </div>
+        <div class="mui-table-view-cell">
+            {{if data.sex == 1}}
+            性别:男
+            {{/if}}
+            {{if data.sex == 2}}
+            性别:女
+            {{/if}}
+        </div>
+        <div class="mui-table-view-cell">
+            省份:{{data.province}}
+        </div>
+        <div class="mui-table-view-cell">
+            城市:{{data.city}}
+        </div>
+        <div class="mui-table-view-cell">
+            国家:{{data.country}}
+        </div>
+        <div class="mui-table-view-cell">
+            头像:<img src='{{data.headimgurl}}'>
+        </div>
+    </div>
+</script>
+<script>
+    $(function () {
+
+        var code = toURLParameter("code"); //"02136mug0pgc5A12Olvg0m19ug036mu4";
+        if (!code) {
+            return;
+        }
+        $.ajax({
+            url: 'http://10.1.11.164:8080/weiXinUser',
+            type: 'get',
+            data: {code: code},
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            dataType: "json",
+            success: function (data) {
+                var tempData = [];
+                tempData.data = data;
+                var html = template('rewardList', tempData);
+                document.getElementById('parentDiv').innerHTML = html;
+            },
+            error: function (data, XMLHttpRequest, textStatus, errorThrown) {
+
+                alert("错误" + data);
+            }
+        });
+    });
+
+    function toURLParameter(parameter) {
+        var toURL = window.location.search.substring(1);
+        var queryParameters = toURL.split('&');
+        for (var i = 0; i < queryParameters.length; i++) {
+            var parameterName = queryParameters[i].split('=');
+            if (parameterName[0] == parameter) {
+                return parameterName[1];
+            }
+        }
+    }
+</script>
+</html>
