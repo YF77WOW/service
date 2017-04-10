@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:annotation-config/>
+
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${datasource.url}"/>
+        <property name="username" value="${datasource.username}"/>
+        <property name="password" value="${datasource.password}"/>
+
+        <property name="initialSize" value="10"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxActive" value="50"/>
+        <property name="testWhileIdle" value="false"/>
+        <property name="minEvictableIdleTimeMillis" value="30000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="filters" value="config"/>
+        <property name="connectionProperties" value="config.decrypt=false"/>
+        <property name="removeAbandoned" value="true"/>
+
+        &lt;!&ndash; 超时时间；单位为秒。180秒=3分钟 &ndash;&gt;
+        <property name="removeAbandonedTimeout" value="180"/>
+        &lt;!&ndash; 关闭abanded连接时输出错误日志 &ndash;&gt;
+        <property name="logAbandoned" value="true"/>
+        <property name="maxWait" value="5000"/>
+
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        &lt;!&ndash;dataSource属性指定要用到的连接池&ndash;&gt;
+        <property name="dataSource" ref="dataSource"/>
+        &lt;!&ndash;configLocation属性指定mybatis的核心配置文件&ndash;&gt;
+        &lt;!&ndash;<property name="mapperLocations" value="classpath:mapeer/*.xml"/>&ndash;&gt;
+
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.com.qifu.taoism.core.dao"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>-->
+
+    <context:component-scan base-package="cn.com.qifu.taoism.core.dao"/>
+
+    <context:component-scan base-package="cn.com.qifu.taoism.core.service"/>
+
+    <bean id="placeholderConfig"
+                 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+        <list>
+            <value>classpath:jdbc.properties</value>
+            <value>classpath:weixin.properties</value>
+        </list>
+    </property>
+</bean>
+
+</beans>

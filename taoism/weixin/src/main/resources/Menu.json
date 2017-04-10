@@ -1,0 +1,14 @@
+{
+  "button": [
+    {
+      "name": "启福",
+      "sub_button": [
+        {
+          "type": "view",
+          "name": "启福",
+          "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=${openid}&redirect_uri=http://${host}/getopenid_test&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+        }
+      ]
+    }
+  ]
+}
